@@ -1,0 +1,53 @@
+body {
+    height: 100%;
+    background: rgb(0, 0, 0);
+    background-size: auto;
+    -webkit-background-size: 100% 100%;
+    overflow: hidden;
+    margin: 0;
+    font-family: 'Quicksand';
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    text-shadow: 1px 1px 0px rgb(0, 0, 0);
+}
+
+html {
+    height: 100%;
+}
+
+#status-container {
+    position: absolute;
+    height: 50px;
+    width: 100%;
+    top: 50%;
+    text-align: center;
+    margin-top: -25px;
+    font-size: 20px;
+    line-height: 18px;
+    z-index: 11;
+}
+
+#loading {
+    display: inline-block;
+    width: 80%;
+    height: 25px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+#loading-progress {
+    height: 100%;
+    width: 0%;
+    background-color: white;
+}
+
+#status {
+    position: absolute;
+    width: 80%;
+    height: 25px;
+    line-height: 25px;
+}
+
+#messages {
+    display: block;
+    margin-top: 10px;
+}

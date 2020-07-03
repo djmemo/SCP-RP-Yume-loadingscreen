@@ -1,0 +1,107 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <title>Fondation Yume SCP-RP / LSM</title>
+</head>
+
+<body>
+    <div id="status-container" style="display: none;">
+        <div id="loading">
+            <div id="status"></div>
+            <div id="loading-progress"></div>
+        </div>
+        <div id="messages"></div>
+    </div>
+
+    <div class="bg">
+        <img data-lazy="img/background1.png" />
+    </div>
+
+    <audio id="audioPlayer" controls autoplay hidden />
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script type="text/javascript">
+        var neededFiles;
+        var downloadedFiles = 0;
+
+        function GameDetails(servername, serverurl, mapname, maxplayers, steamid, gamemode, volume, lang) {
+            $("#status-container").show();
+            $("#status-container #messages").append("Bienvenue sur " + servername);
+        }
+
+        function DownloadingFile(file) {
+            downloadedFiles++;
+            refreshProgress();
+            setStatus("Téléchargement des addons, etc...");
+        }
+
+        function SetStatusChanged(status) {
+            if (downloadedFiles <= neededFiles) {
+                downloadedFiles++;
+                refreshProgress();
+            }
+
+            if (status == "Envoi des Infos") {
+                setProgress(100);
+            }
+
+            setStatus(status);
+        }
+
+        function SetFilesNeeded(needed) {
+            neededFiles = needed + 1;
+        }
+
+        function refreshProgress() {
+            progress = Math.floor(((downloadedFiles / neededFiles) * 100));
+            setProgress(progress);
+        }
+
+        function setStatus(text) {
+            $("#status").html(text);
+        }
+
+        function setProgress(progress) {
+            $("#loading-progress").css("width", progress + "%");
+        }
+
+        $(document).ready(function () {
+            $('.bg').slick({
+                dots: false,
+                arrows: false,
+                infinite: true,
+                adaptiveHeight: true,
+                lazyLoad: 'ondemand',
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                fade: true,
+            });
+        });
+
+        var playlistCount = 0;
+        var playlist = [
+            "SCP Foundation - SCP Main theme.ogg"
+        ];
+        var playlistLength = playlist.length;
+        var audioPlayer = document.getElementById('audioPlayer');
+        var volume = 5;
+        audioPlayer.src = "mp3/" + playlist[playlistCount++]
+        audioPlayer.volume = volume / 100;
+        audioPlayer.onended = function () {
+            audioPlayer.src = "mp3/" + playlist[playlistCount++];
+
+            if (playlistCount >= playlistLength + 1) {
+                playlistCount = 0;
+            }
+        }
+    </script>
+</body>
+
+</html>
